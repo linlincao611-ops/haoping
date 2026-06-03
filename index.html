@@ -521,6 +521,15 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 8px;
+      width: 100%;
+    }
+
+    .filter-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      width: 100%;
     }
 
     .gallery-grid {
@@ -1177,7 +1186,7 @@
           </p>
           <div class="actions">
             <a class="primary-action" href="#gallery" data-filter-link="featured">
-              进入照片管理
+              进入好评管理
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
             </a>
             <a class="secondary-action" href="#featuredReviews">精选好评</a>
@@ -1205,7 +1214,7 @@
             </a>
             <a class="stat" href="#gallery" data-filter-link="featured">
               <span class="stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6 6 .9-4.5 4.4 1.1 6.3L12 16.7 6.4 19.6l1.1-6.3L3 8.9 9 8z"/></svg></span>
-              <div><strong>照片管理</strong><span>查看、筛选、编辑和下载图片。</span></div>
+              <div><strong>好评管理</strong><span>查看、筛选、编辑和下载图片。</span></div>
             </a>
             <a class="stat" href="#uploadModal" data-open-upload>
               <span class="stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8 12 3 7 8"/><path d="M12 3v12"/></svg></span>
@@ -1259,7 +1268,7 @@
               <span class="entry-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6 6 .9-4.5 4.4 1.1 6.3L12 16.7 6.4 19.6l1.1-6.3L3 8.9 9 8z"/></svg></span>
               <span class="entry-tag">精选</span>
             </div>
-            <h3>照片管理</h3>
+            <h3>好评管理</h3>
             <p>查看所有图片，按大分类、小分类和未分类状态筛选管理。</p>
             <span class="entry-link">进入管理 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
           </a>
@@ -1286,18 +1295,21 @@
           <div class="gallery-layout">
             <div class="gallery-left">
               <div class="gallery-toolbar">
-                <div class="category-label" id="currentCategoryLabel">照片管理 · 全部图片</div>
                 <div class="tag-filters" aria-label="画廊筛选标签">
-                  <button class="filter-button star-filter" data-filter-type="featured" data-filter-value="true"><span>★</span><span>精选好评</span></button>
-                  <button class="filter-button danger-filter" data-filter-type="unclassified" data-filter-value="true">未分类</button>
-                  <button class="filter-button" data-filter-type="major" data-filter-value="all">全部大分类</button>
-                  <button class="filter-button" data-filter-type="major" data-filter-value="lobster">行业案例</button>
-                  <button class="filter-button" data-filter-type="major" data-filter-value="community">交流好评</button>
-                  <button class="filter-button" data-filter-type="major" data-filter-value="student">学员成长</button>
-                  <button class="filter-button active" data-filter-type="minor" data-filter-value="all">全部</button>
-                  <button class="filter-button" data-filter-type="minor" data-filter-value="finance">财务</button>
-                  <button class="filter-button" data-filter-type="minor" data-filter-value="admin">行政</button>
-                  <button class="filter-button" data-filter-type="minor" data-filter-value="marketing">运营</button>
+                  <div class="filter-row">
+                    <button class="filter-button active" data-filter-type="minor" data-filter-value="all">岗位分类</button>
+                    <button class="filter-button" data-filter-type="minor" data-filter-value="finance">财务</button>
+                    <button class="filter-button" data-filter-type="minor" data-filter-value="admin">行政</button>
+                    <button class="filter-button" data-filter-type="minor" data-filter-value="marketing">运营</button>
+                  </div>
+                  <div class="filter-row">
+                    <button class="filter-button star-filter" data-filter-type="featured" data-filter-value="true"><span>★</span><span>精选好评</span></button>
+                    <button class="filter-button danger-filter" data-filter-type="unclassified" data-filter-value="true">未分类</button>
+                    <button class="filter-button" data-filter-type="major" data-filter-value="all">内容分类</button>
+                    <button class="filter-button" data-filter-type="major" data-filter-value="lobster">行业案例</button>
+                    <button class="filter-button" data-filter-type="major" data-filter-value="community">交流好评</button>
+                    <button class="filter-button" data-filter-type="major" data-filter-value="student">学员成长</button>
+                  </div>
                 </div>
                 <div class="management-actions">
                   <button class="filter-button" type="button" id="editToggle">编辑</button>
@@ -1311,29 +1323,6 @@
         </div>
       </div>
     </section>
-    <section class="section" id="proof">
-      <div class="shell">
-        <div class="section-title">
-          <h2>精选反馈</h2>
-          <p>这里先放示例文案，后续可以替换成真实截图或真实学员评价。</p>
-        </div>
-        <div class="proof-wall">
-          <article class="proof" id="student-cases">
-            <p>“跟着曹导把 AI 工具真正用到工作流里，不只是学概念，而是能做出结果。”</p>
-            <span>学员案例好评 · 待替换真实截图</span>
-          </article>
-          <article class="proof" id="community-praise">
-            <p>“交流群里提问很快有人回应，大家会分享自己的实操方法，学习氛围很强。”</p>
-            <span>交流群好评 · 待替换真实截图</span>
-          </article>
-          <article class="proof" id="lobster-praise">
-            <p>“龙虾群的信息密度高，能看到很多同行的真实行动和反馈，很有启发。”</p>
-            <span>龙虾群好评 · 待替换真实截图</span>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <section class="gallery-section" id="featuredReviews">
       <div class="shell">
         <div class="gallery-panel">
@@ -1343,29 +1332,6 @@
           </div>
           <div class="gallery-grid" id="featuredGrid"></div>
           <button class="gallery-more" type="button" id="featuredMore">查看更多 <span class="nav-arrow" aria-hidden="true"></span></button>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="upload">
-      <div class="shell">
-        <div class="section-title">
-          <h2>好评上传</h2>
-          <p>这里是后续维护入口。你可以把真实截图按“行业案例、交流好评、学员成长”和“财务、行政、运营”整理好，再替换到画廊卡片里。</p>
-        </div>
-        <div class="proof-wall">
-          <article class="proof">
-            <p>上传建议：把新截图直接放进项目里的“好评图”文件夹，刷新页面后会自动进入“好评分类”。</p>
-            <span>素材规范</span>
-          </article>
-          <article class="proof">
-            <p>精选好评：重点案例可以加星标，进入“好评分类”后会优先筛出来。</p>
-            <span>精选规则</span>
-          </article>
-          <article class="proof">
-            <p>隐私处理：上传前建议遮住手机号、微信号、订单号等敏感信息。</p>
-            <span>发布提醒</span>
-          </article>
         </div>
       </div>
     </section>
@@ -1547,14 +1513,14 @@
         : (state.unclassified === "true" ? "未分类" : (categoryNames[state.major] || "全部图片"));
       galleryTitle.textContent = title;
       if (state.featured === "true") {
-        categoryLabel.textContent = "照片管理 · 精选好评";
+        if (categoryLabel) categoryLabel.textContent = "好评管理 · 精选好评";
         return;
       }
       if (state.unclassified === "true") {
-        categoryLabel.textContent = "照片管理 · 未分类";
+        if (categoryLabel) categoryLabel.textContent = "好评管理 · 未分类";
         return;
       }
-      categoryLabel.textContent = "照片管理 · " + (categoryNames[state.major] || "全部图片");
+      if (categoryLabel) categoryLabel.textContent = "好评管理 · " + (categoryNames[state.major] || "全部图片");
     }
 
     function setActive(type, value) {
@@ -2060,6 +2026,11 @@
       if (event.key === "ArrowLeft") moveModal(-1);
       if (event.key === "ArrowRight") moveModal(1);
     });
+
+    if (location.hash === "#gallery") {
+      history.replaceState(null, "", location.pathname + location.search);
+      requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0 }));
+    }
 
     loadReviews();
     syncDeleteAccess();
