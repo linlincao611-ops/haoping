@@ -305,6 +305,29 @@
       line-height: 1.7;
     }
 
+    .about-title-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .delete-unlock {
+      width: 12px;
+      height: 12px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: var(--green);
+      box-shadow: 0 0 14px rgba(51, 242, 191, 0.72);
+      cursor: pointer;
+    }
+
+    .delete-unlock.is-active {
+      width: 16px;
+      height: 16px;
+      box-shadow: 0 0 0 5px rgba(51, 242, 191, 0.14), 0 0 24px rgba(51, 242, 191, 0.92);
+    }
+
     .entry-grid {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -627,6 +650,52 @@
       background: rgba(255, 255, 255, 0.04);
     }
 
+    .upload-drop {
+      min-height: 260px;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      border: 1px dashed rgba(92, 190, 255, 0.42);
+      border-radius: 8px;
+      color: var(--muted);
+      text-align: center;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .upload-drop input {
+      max-width: 100%;
+      margin-top: 18px;
+      color: var(--text);
+    }
+
+    .upload-status {
+      min-height: 24px;
+      margin-top: 12px;
+      color: #9beaff;
+      font-weight: 700;
+    }
+
+    .gallery-more {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 48px;
+      margin-top: 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(92, 190, 255, 0.28);
+      color: #03101f;
+      background: linear-gradient(90deg, var(--cyan), var(--green));
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .gallery-more.is-visible {
+      display: flex;
+    }
+
     .filter-button {
       min-height: 38px;
       border: 1px solid rgba(92, 190, 255, 0.22);
@@ -657,6 +726,68 @@
     .filter-button.star-filter.active {
       background: var(--gold);
       color: #06111f;
+    }
+
+    .filter-button.danger-filter {
+      border-color: rgba(255, 94, 94, 0.52);
+      color: #ffd1d1;
+    }
+
+    .filter-button.danger-filter.active {
+      color: #fff;
+      background: #ff4242;
+    }
+
+    .management-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .download-action:disabled {
+      cursor: not-allowed;
+      opacity: 0.42;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .download-action:not(:disabled) {
+      color: #03101f;
+      background: linear-gradient(90deg, var(--green), var(--cyan));
+      border-color: transparent;
+    }
+
+    .select-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+      width: 34px;
+      height: 34px;
+      display: none;
+      place-items: center;
+      border: 2px solid rgba(234, 246, 255, 0.72);
+      border-radius: 8px;
+      color: transparent;
+      background: rgba(6, 17, 31, 0.72);
+      font-weight: 900;
+    }
+
+    .gallery-item.is-selectable .select-badge {
+      display: grid;
+    }
+
+    .gallery-item.is-selected {
+      border-color: rgba(51, 242, 191, 0.9);
+      box-shadow: 0 0 0 2px rgba(51, 242, 191, 0.24);
+    }
+
+    .gallery-item.is-selected .select-badge {
+      color: #03101f;
+      background: var(--green);
+      border-color: transparent;
     }
 
     .modal {
@@ -846,6 +977,34 @@
       border-color: transparent;
     }
 
+    .delete-action {
+      display: none;
+      margin-top: 12px;
+      color: #fff;
+      background: rgba(255, 72, 72, 0.88);
+      border-color: rgba(255, 140, 140, 0.5);
+    }
+
+    body.delete-enabled .delete-action {
+      display: block;
+    }
+
+    .delete-action:hover {
+      background: #ff4242;
+      border-color: rgba(255, 255, 255, 0.36);
+    }
+
+    .batch-action {
+      color: #06111f;
+      background: var(--gold);
+      border-color: transparent;
+    }
+
+    .batch-action:hover {
+      color: #06111f;
+      background: #ffe08a;
+    }
+
     .star-action .star-icon {
       width: 28px;
       height: 28px;
@@ -1001,7 +1160,7 @@
       <span>AI成长圈 · 曹导</span>
     </a>
     <nav class="nav-links" aria-label="页面导航">
-      <a href="#gallery" data-filter-link="featured">精选反馈</a>
+      <a href="#featuredReviews">精选好评</a>
       <a href="#about">关于课程</a>
     </nav>
   </header>
@@ -1018,10 +1177,10 @@
           </p>
           <div class="actions">
             <a class="primary-action" href="#gallery" data-filter-link="featured">
-              进入好评分类
+              进入照片管理
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
             </a>
-            <a class="secondary-action" href="#gallery" data-filter-link="featured">先看精选好评</a>
+            <a class="secondary-action" href="#featuredReviews">精选好评</a>
           </div>
         </div>
 
@@ -1046,11 +1205,11 @@
             </a>
             <a class="stat" href="#gallery" data-filter-link="featured">
               <span class="stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6 6 .9-4.5 4.4 1.1 6.3L12 16.7 6.4 19.6l1.1-6.3L3 8.9 9 8z"/></svg></span>
-              <div><strong>好评分类</strong><span>用精选星标快速筛出重点内容。</span></div>
+              <div><strong>照片管理</strong><span>查看、筛选、编辑和下载图片。</span></div>
             </a>
-            <a class="stat" href="#upload">
+            <a class="stat" href="#uploadModal" data-open-upload>
               <span class="stat-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8 12 3 7 8"/><path d="M12 3v12"/></svg></span>
-              <div><strong>好评上传</strong><span>预留后续上传截图与素材入口。</span></div>
+              <div><strong>好评上传</strong><span>上传截图后进入分类。</span></div>
             </a>
           </div>
         </aside>
@@ -1100,12 +1259,12 @@
               <span class="entry-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 3 6 6 .9-4.5 4.4 1.1 6.3L12 16.7 6.4 19.6l1.1-6.3L3 8.9 9 8z"/></svg></span>
               <span class="entry-tag">精选</span>
             </div>
-            <h3>好评分类</h3>
-            <p>新放进“好评图”的截图会先到这里，点开图片后可划分到对应大分类。</p>
-            <span class="entry-link">进入分类 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+            <h3>照片管理</h3>
+            <p>查看所有图片，按大分类、小分类和未分类状态筛选管理。</p>
+            <span class="entry-link">进入管理 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
           </a>
 
-          <a class="entry-card upload-entry" href="#upload">
+          <a class="entry-card upload-entry" href="#uploadModal" data-open-upload>
             <div class="entry-top">
               <span class="entry-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8 12 3 7 8"/><path d="M12 3v12"/></svg></span>
               <span class="entry-tag">上传</span>
@@ -1122,21 +1281,31 @@
         <div class="gallery-panel">
           <div class="gallery-head">
             <h2 id="galleryTitle">AI成长圈 · 曹导</h2>
-            <p>把图片放进项目里的“好评图”文件夹后，会自动出现在好评分类；点开图片即可放大、星标或划分到大分类。</p>
+            <p>这里显示所有图片，可按大分类、小分类或未分类筛选；进入编辑后可勾选图片并批量下载。</p>
           </div>
           <div class="gallery-layout">
             <div class="gallery-left">
               <div class="gallery-toolbar">
-                <div class="category-label" id="currentCategoryLabel">分类 · 全部好评</div>
+                <div class="category-label" id="currentCategoryLabel">照片管理 · 全部图片</div>
                 <div class="tag-filters" aria-label="画廊筛选标签">
                   <button class="filter-button star-filter" data-filter-type="featured" data-filter-value="true"><span>★</span><span>精选好评</span></button>
+                  <button class="filter-button danger-filter" data-filter-type="unclassified" data-filter-value="true">未分类</button>
+                  <button class="filter-button" data-filter-type="major" data-filter-value="all">全部大分类</button>
+                  <button class="filter-button" data-filter-type="major" data-filter-value="lobster">行业案例</button>
+                  <button class="filter-button" data-filter-type="major" data-filter-value="community">交流好评</button>
+                  <button class="filter-button" data-filter-type="major" data-filter-value="student">学员成长</button>
                   <button class="filter-button active" data-filter-type="minor" data-filter-value="all">全部</button>
                   <button class="filter-button" data-filter-type="minor" data-filter-value="finance">财务</button>
                   <button class="filter-button" data-filter-type="minor" data-filter-value="admin">行政</button>
                   <button class="filter-button" data-filter-type="minor" data-filter-value="marketing">运营</button>
                 </div>
+                <div class="management-actions">
+                  <button class="filter-button" type="button" id="editToggle">编辑</button>
+                  <button class="filter-button download-action" type="button" id="downloadSelected" disabled>下载</button>
+                </div>
               </div>
               <div class="gallery-grid" id="galleryGrid"></div>
+              <button class="gallery-more" type="button" id="galleryMore">查看更多 <span class="nav-arrow" aria-hidden="true"></span></button>
             </div>
           </div>
         </div>
@@ -1161,6 +1330,19 @@
             <p>“龙虾群的信息密度高，能看到很多同行的真实行动和反馈，很有启发。”</p>
             <span>龙虾群好评 · 待替换真实截图</span>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery-section" id="featuredReviews">
+      <div class="shell">
+        <div class="gallery-panel">
+          <div class="gallery-head">
+            <h2>精选好评</h2>
+            <p>这里集中展示你点过“这个不错”的星标内容，方便对外展示重点案例。</p>
+          </div>
+          <div class="gallery-grid" id="featuredGrid"></div>
+          <button class="gallery-more" type="button" id="featuredMore">查看更多 <span class="nav-arrow" aria-hidden="true"></span></button>
         </div>
       </div>
     </section>
@@ -1191,7 +1373,10 @@
     <section class="section" id="about">
       <div class="shell">
         <div class="section-title">
-          <h2>关于 AI成长圈</h2>
+          <div class="about-title-row">
+            <h2>关于 AI成长圈</h2>
+            <button class="delete-unlock" type="button" id="deleteUnlock" aria-label="开启删除功能"></button>
+          </div>
           <p>
             AI成长圈由曹导主理，聚焦 AI 工具应用、个人 IP 成长、效率提升与实战落地。
             这个页面可以作为对外展示入口，也可以继续扩展成案例库、截图墙或课程介绍站。
@@ -1227,7 +1412,34 @@
           <button class="modal-action minor-action manage-only" type="button" data-classify-minor="marketing">运营</button>
           <button class="modal-action minor-action manage-only" type="button" data-classify-minor="other">无法判定</button>
           <div class="classify-hint manage-only" id="classifyHint">先选大分类，再选小分类。</div>
+          <button class="modal-action delete-action manage-only" type="button" id="modalDelete">删除图片</button>
           <button class="modal-close" type="button" id="modalClose" aria-label="关闭">×</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="uploadModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="uploadTitle">
+      <div class="modal-image">
+        <div class="upload-drop">
+          <div>
+            <h3 id="uploadTitle">上传好评图片</h3>
+            <p>选择截图后会自动进入分类界面。</p>
+            <input id="uploadInput" type="file" accept="image/*">
+            <input id="batchUploadInput" type="file" accept="image/*" multiple hidden>
+            <div class="upload-status" id="uploadStatus"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-meta">
+        <div>
+          <h3>好评分类</h3>
+          <p>上传成功后，右侧会正常选择大分类和小分类。</p>
+        </div>
+        <div class="modal-actions">
+          <button class="modal-action batch-action" type="button" id="batchUploadButton">批量上传</button>
+          <button class="modal-close" type="button" id="uploadClose" aria-label="关闭">×</button>
         </div>
       </div>
     </div>
@@ -1238,14 +1450,27 @@
   </footer>
 
   <script>
-    const state = { major: "all", minor: "all", featured: "all" };
+    const state = { major: "all", minor: "all", featured: "all", unclassified: "all" };
     const buttons = Array.from(document.querySelectorAll(".filter-button"));
     const galleryGrid = document.getElementById("galleryGrid");
+    const galleryMore = document.getElementById("galleryMore");
+    const featuredGrid = document.getElementById("featuredGrid");
+    const featuredMore = document.getElementById("featuredMore");
+    const editToggle = document.getElementById("editToggle");
+    const downloadSelected = document.getElementById("downloadSelected");
     const modal = document.getElementById("galleryModal");
+    const uploadModal = document.getElementById("uploadModal");
+    const uploadInput = document.getElementById("uploadInput");
+    const batchUploadInput = document.getElementById("batchUploadInput");
+    const batchUploadButton = document.getElementById("batchUploadButton");
+    const uploadStatus = document.getElementById("uploadStatus");
+    const uploadClose = document.getElementById("uploadClose");
+    const deleteUnlock = document.getElementById("deleteUnlock");
     const modalImage = document.getElementById("modalImage");
     const modalTitle = document.getElementById("modalTitle");
     const modalDesc = document.getElementById("modalDesc");
     const modalClose = document.getElementById("modalClose");
+    const modalDelete = document.getElementById("modalDelete");
     const modalPrev = document.getElementById("modalPrev");
     const modalNext = document.getElementById("modalNext");
     const modalStar = document.getElementById("modalStar");
@@ -1260,10 +1485,17 @@
     let pendingMajor = "";
     let pendingMinor = "";
     let managementMode = false;
+    let galleryLimit = 3;
+    let featuredLimit = 3;
+    let editMode = false;
+    let deleteTimer = null;
+    const selectedReviews = new Set();
+    const deleteWindowMs = 30 * 60 * 1000;
+    const deleteUnlockKey = "aiGrowthDeleteEnabledUntil";
 
     const categoryNames = {
       all: "全部好评",
-      inbox: "好评分类",
+      inbox: "未分类",
       lobster: "行业案例",
       community: "交流好评",
       student: "学员成长",
@@ -1286,39 +1518,88 @@
       localStorage.setItem("aiGrowthFeatured", JSON.stringify(savedFeatured));
     }
 
+    function syncDeleteAccess() {
+      const until = Number(localStorage.getItem(deleteUnlockKey) || 0);
+      const enabled = Date.now() < until;
+      document.body.classList.toggle("delete-enabled", enabled);
+      deleteUnlock.classList.toggle("is-active", enabled);
+      deleteUnlock.setAttribute("aria-label", enabled ? "删除功能已开启" : "开启删除功能");
+      if (deleteTimer) {
+        clearTimeout(deleteTimer);
+        deleteTimer = null;
+      }
+      if (enabled) {
+        deleteTimer = setTimeout(() => {
+          localStorage.removeItem(deleteUnlockKey);
+          syncDeleteAccess();
+        }, until - Date.now());
+      }
+    }
+
+    function enableDeleteAccess() {
+      localStorage.setItem(deleteUnlockKey, String(Date.now() + deleteWindowMs));
+      syncDeleteAccess();
+    }
+
     function syncCategoryLabel() {
       const title = state.featured === "true"
         ? "精选好评"
-        : (categoryNames[state.major] || "全部好评");
+        : (state.unclassified === "true" ? "未分类" : (categoryNames[state.major] || "全部图片"));
       galleryTitle.textContent = title;
       if (state.featured === "true") {
-        categoryLabel.textContent = "分类 · 精选好评";
+        categoryLabel.textContent = "照片管理 · 精选好评";
         return;
       }
-      categoryLabel.textContent = "分类 · " + (categoryNames[state.major] || "全部好评");
+      if (state.unclassified === "true") {
+        categoryLabel.textContent = "照片管理 · 未分类";
+        return;
+      }
+      categoryLabel.textContent = "照片管理 · " + (categoryNames[state.major] || "全部图片");
     }
 
     function setActive(type, value) {
       state[type] = value;
+      galleryLimit = 3;
+      if (type === "unclassified" && value === "true") {
+        state.major = "all";
+        state.minor = "all";
+        state.featured = "all";
+      }
+      if ((type === "major" || type === "minor" || type === "featured") && value !== "all") {
+        state.unclassified = "all";
+      }
       buttons
         .filter((button) => button.dataset.filterType === type)
         .forEach((button) => button.classList.toggle("active", button.dataset.filterValue === value));
+      buttons
+        .filter((button) => button.dataset.filterType === "unclassified")
+        .forEach((button) => button.classList.toggle("active", state.unclassified === "true"));
+      buttons
+        .filter((button) => button.dataset.filterType === "major")
+        .forEach((button) => button.classList.toggle("active", button.dataset.filterValue === state.major));
+      buttons
+        .filter((button) => button.dataset.filterType === "minor")
+        .forEach((button) => button.classList.toggle("active", button.dataset.filterValue === state.minor));
       syncCategoryLabel();
       renderGallery();
     }
 
     function filteredReviews() {
       return allReviews.filter((review) => {
+        const isUnclassified = review.major === "inbox" || review.minor === "other";
+        const matchUnclassified = state.unclassified === "all" || isUnclassified;
         const matchMajor = state.major === "all" || review.major === state.major;
         const matchMinor = state.minor === "all" || review.minor === state.minor;
         const matchFeatured = state.featured === "all" || getFeatured(review);
-        return matchMajor && matchMinor && matchFeatured;
+        return matchUnclassified && matchMajor && matchMinor && matchFeatured;
       });
     }
 
     function renderGallery() {
-      visibleReviews = filteredReviews().slice(0, 3);
+      const reviews = filteredReviews();
+      visibleReviews = reviews.slice(0, galleryLimit);
       galleryGrid.innerHTML = "";
+      galleryMore.classList.toggle("is-visible", reviews.length > visibleReviews.length);
 
       if (!visibleReviews.length) {
         const empty = document.createElement("div");
@@ -1327,24 +1608,93 @@
           ? "好评分类里暂时没有待划分图片。把新截图放进“好评图”文件夹后刷新页面即可看到。"
           : "当前分类下还没有图片。";
         galleryGrid.appendChild(empty);
+        renderFeaturedReviews();
         return;
       }
 
       visibleReviews.forEach((review) => {
-        const item = document.createElement("button");
-        item.className = "gallery-item";
-        item.type = "button";
-        item.dataset.id = review.id;
-        item.innerHTML = `
-          <span class="star-badge ${getFeatured(review) ? "" : "is-off"}">★</span>
-          <div class="gallery-thumb ${review.minor}">
-            <img src="${review.url}" alt="${review.title}">
-          </div>
-          <strong>${review.title}</strong>
-          <span>大分类：${categoryNames[review.major] || "好评分类"}｜小分类：${minorNames[review.minor] || "未设置"}</span>
-        `;
-        item.addEventListener("click", () => openReview(review));
-        galleryGrid.appendChild(item);
+        galleryGrid.appendChild(createReviewCard(review));
+      });
+      renderFeaturedReviews();
+    }
+
+    function createReviewCard(review) {
+      const item = document.createElement("button");
+      item.className = "gallery-item" + (editMode ? " is-selectable" : "") + (selectedReviews.has(review.id) ? " is-selected" : "");
+      item.type = "button";
+      item.dataset.id = review.id;
+      item.innerHTML = `
+        <span class="select-badge">✓</span>
+        <span class="star-badge ${getFeatured(review) ? "" : "is-off"}">★</span>
+        <div class="gallery-thumb ${review.minor}">
+          <img src="${review.url}" alt="${review.title}">
+        </div>
+        <strong>${review.title}</strong>
+        <span>大分类：${categoryNames[review.major] || "未分类"}｜小分类：${minorNames[review.minor] || "未设置"}</span>
+      `;
+      item.addEventListener("click", () => {
+        if (editMode) {
+          toggleSelectedReview(review.id);
+        } else {
+          openReview(review);
+        }
+      });
+      return item;
+    }
+
+    function updateDownloadState() {
+      downloadSelected.disabled = selectedReviews.size === 0;
+      downloadSelected.textContent = selectedReviews.size ? `下载 ${selectedReviews.size} 张` : "下载";
+      editToggle.classList.toggle("active", editMode);
+    }
+
+    function toggleSelectedReview(id) {
+      if (selectedReviews.has(id)) {
+        selectedReviews.delete(id);
+      } else {
+        selectedReviews.add(id);
+      }
+      updateDownloadState();
+      renderGallery();
+    }
+
+    function toggleEditMode() {
+      editMode = !editMode;
+      if (!editMode) selectedReviews.clear();
+      updateDownloadState();
+      renderGallery();
+    }
+
+    function downloadSelectedReviews() {
+      if (!selectedReviews.size) return;
+      const reviews = allReviews.filter((review) => selectedReviews.has(review.id));
+      reviews.forEach((review, index) => {
+        setTimeout(() => {
+          const link = document.createElement("a");
+          link.href = review.url;
+          link.download = review.name || review.title || "review-image";
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+        }, index * 180);
+      });
+    }
+
+    function renderFeaturedReviews() {
+      if (!featuredGrid) return;
+      const featuredReviews = allReviews.filter((review) => getFeatured(review));
+      const shownFeatured = featuredReviews.slice(0, featuredLimit);
+      featuredGrid.innerHTML = "";
+      featuredMore.classList.toggle("is-visible", featuredReviews.length > shownFeatured.length);
+      if (!featuredReviews.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty-gallery";
+        empty.textContent = "暂时还没有精选好评。点开图片后点击“这个不错”，这里就会出现。";
+        featuredGrid.appendChild(empty);
+        return;
+      }
+      shownFeatured.forEach((review) => {
+        featuredGrid.appendChild(createReviewCard(review));
       });
     }
 
@@ -1518,6 +1868,8 @@
         managementMode = true;
         document.body.classList.remove("static-mode");
         allReviews = data.images || [];
+        selectedReviews.clear();
+        updateDownloadState();
         renderGallery();
       } catch (error) {
         try {
@@ -1526,6 +1878,8 @@
           managementMode = false;
           document.body.classList.add("static-mode");
           allReviews = data.images || [];
+          selectedReviews.clear();
+          updateDownloadState();
           renderGallery();
         } catch (staticError) {
           galleryGrid.innerHTML = '<div class="empty-gallery">暂时没有读取到图片，请确认好评图文件夹已经上传。</div>';
@@ -1537,6 +1891,8 @@
       button.addEventListener("click", () => {
         if (button.dataset.filterType === "featured") {
           setActive("featured", button.classList.contains("active") ? "all" : "true");
+        } else if (button.dataset.filterType === "unclassified") {
+          setActive("unclassified", button.classList.contains("active") ? "all" : "true");
         } else {
           setActive(button.dataset.filterType, button.dataset.filterValue);
         }
@@ -1549,7 +1905,9 @@
         setTimeout(() => {
           if (value === "featured") {
             setActive("featured", "all");
-            setActive("major", "inbox");
+            setActive("unclassified", "all");
+            setActive("major", "all");
+            setActive("minor", "all");
           }
           if (value === "student" || value === "community" || value === "lobster") {
             setActive("featured", "all");
@@ -1558,6 +1916,114 @@
         }, 80);
       });
     });
+
+    function openUploadModal(event) {
+      if (event) event.preventDefault();
+      if (!managementMode) {
+        alert("上传功能需要在本地管理模式使用。");
+        return;
+      }
+      uploadStatus.textContent = "";
+      uploadInput.value = "";
+      uploadModal.classList.add("is-open");
+      uploadModal.setAttribute("aria-hidden", "false");
+    }
+
+    function closeUploadModal() {
+      uploadModal.classList.remove("is-open");
+      uploadModal.setAttribute("aria-hidden", "true");
+    }
+
+    async function uploadOneFile(file) {
+      const formData = new FormData();
+      formData.append("image", file);
+      const response = await fetch("/api/reviews/upload", {
+        method: "POST",
+        body: formData
+      });
+      const result = await response.json();
+      if (!response.ok || !result.ok) {
+        throw new Error(result.message || "上传失败");
+      }
+      return result.image;
+    }
+
+    async function uploadSelectedImage() {
+      const file = uploadInput.files && uploadInput.files[0];
+      if (!file) return;
+      uploadStatus.textContent = "正在上传...";
+      try {
+        const image = await uploadOneFile(file);
+        closeUploadModal();
+        await loadReviews();
+        setActive("featured", "all");
+        setActive("major", "inbox");
+        const uploaded = allReviews.find((review) => review.id === image.id) || image;
+        openReview(uploaded);
+        location.hash = "gallery";
+      } catch (error) {
+        uploadStatus.textContent = error.message || "上传失败，请重试";
+      }
+    }
+
+    async function uploadBatchImages() {
+      const files = Array.from(batchUploadInput.files || []);
+      if (!files.length) return;
+      uploadStatus.textContent = `正在上传 ${files.length} 张...`;
+      try {
+        for (const file of files) {
+          await uploadOneFile(file);
+        }
+        uploadStatus.textContent = "上传成功";
+        await loadReviews();
+        setActive("featured", "all");
+        setActive("major", "inbox");
+      } catch (error) {
+        uploadStatus.textContent = error.message || "批量上传失败，请重试";
+      } finally {
+        batchUploadInput.value = "";
+      }
+    }
+
+    async function deleteCurrentReview() {
+      if (!currentReview || !managementMode) return;
+      const ok = confirm("确定删除这张图片吗？");
+      if (!ok) return;
+      try {
+        const response = await fetch("/api/reviews/delete", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: currentReview.id })
+        });
+        const result = await response.json();
+        if (!response.ok || !result.ok) {
+          throw new Error(result.message || "删除失败");
+        }
+        delete savedFeatured[currentReview.id];
+        localStorage.setItem("aiGrowthFeatured", JSON.stringify(savedFeatured));
+        closeModal();
+        await loadReviews();
+      } catch (error) {
+        alert(error.message || "删除失败，请重试");
+      }
+    }
+
+    document.querySelectorAll("[data-open-upload]").forEach((link) => {
+      link.addEventListener("click", openUploadModal);
+    });
+
+    galleryMore.addEventListener("click", () => {
+      galleryLimit += 3;
+      renderGallery();
+    });
+
+    featuredMore.addEventListener("click", () => {
+      featuredLimit += 3;
+      renderFeaturedReviews();
+    });
+
+    editToggle.addEventListener("click", toggleEditMode);
+    downloadSelected.addEventListener("click", downloadSelectedReviews);
 
     classifyButtons.forEach((button) => {
       button.addEventListener("click", () => selectMajor(button.dataset.classifyMajor));
@@ -1573,6 +2039,15 @@
     }
 
     modalClose.addEventListener("click", closeModal);
+    modalDelete.addEventListener("click", deleteCurrentReview);
+    deleteUnlock.addEventListener("click", enableDeleteAccess);
+    uploadClose.addEventListener("click", closeUploadModal);
+    uploadInput.addEventListener("change", uploadSelectedImage);
+    batchUploadButton.addEventListener("click", () => batchUploadInput.click());
+    batchUploadInput.addEventListener("change", uploadBatchImages);
+    uploadModal.addEventListener("click", (event) => {
+      if (event.target === uploadModal) closeUploadModal();
+    });
     modalPrev.addEventListener("click", () => moveModal(-1));
     modalNext.addEventListener("click", () => moveModal(1));
     modalStar.addEventListener("click", toggleCurrentStar);
@@ -1581,11 +2056,13 @@
     });
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") closeModal();
+      if (event.key === "Escape") closeUploadModal();
       if (event.key === "ArrowLeft") moveModal(-1);
       if (event.key === "ArrowRight") moveModal(1);
     });
 
     loadReviews();
+    syncDeleteAccess();
   </script>
 </body>
 </html>
