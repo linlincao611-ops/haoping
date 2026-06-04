@@ -1093,6 +1093,17 @@
       line-height: 1.5;
     }
 
+    .current-classification {
+      margin: 12px 0 4px;
+      padding: 10px 12px;
+      border: 1px solid rgba(92, 190, 255, 0.22);
+      border-radius: 8px;
+      color: #dcefff;
+      background: rgba(255, 255, 255, 0.055);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
     body.static-mode .manage-only {
       display: none;
     }
@@ -1411,6 +1422,7 @@
           <button class="modal-action nav-action prev" type="button" id="modalPrev"><span class="nav-arrow" aria-hidden="true"></span><span>上一张</span></button>
           <button class="modal-action nav-action next" type="button" id="modalNext"><span>下一张</span><span class="nav-arrow" aria-hidden="true"></span></button>
           <button class="modal-action star-action" type="button" id="modalStar"><span class="star-icon">★</span><span>这个不错</span></button>
+          <div class="current-classification manage-only" id="currentClassification">当前归属：未分类｜无法判定</div>
           <div class="modal-category-title manage-only">划分大分类</div>
           <button class="modal-action classify-action manage-only" type="button" data-classify-major="lobster">行业案例</button>
           <button class="modal-action classify-action manage-only" type="button" data-classify-major="community">交流好评</button>
@@ -1489,6 +1501,7 @@
     const classifyButtons = Array.from(document.querySelectorAll("[data-classify-major]"));
     const minorClassifyButtons = Array.from(document.querySelectorAll("[data-classify-minor]"));
     const classifyHint = document.getElementById("classifyHint");
+    const currentClassification = document.getElementById("currentClassification");
     let allReviews = [];
     let visibleReviews = [];
     let currentReview = null;
@@ -1710,7 +1723,7 @@
 
     function updateClassifyButtons(review) {
       pendingMajor = review.major === "inbox" ? "" : review.major;
-      pendingMinor = review.minor === "other" ? "" : review.minor;
+      pendingMinor = review.minor || "other";
       classifyButtons.forEach((button) => {
         const active = button.dataset.classifyMajor === pendingMajor;
         button.classList.toggle("active", active);
@@ -1720,7 +1733,14 @@
         const active = button.dataset.classifyMinor === pendingMinor;
         button.classList.toggle("active", active);
       });
+      updateCurrentClassification();
       updateClassifyHint();
+    }
+
+    function updateCurrentClassification() {
+      const majorText = pendingMajor ? categoryNames[pendingMajor] : "未分类";
+      const minorText = minorNames[pendingMinor || "other"] || "无法判定";
+      currentClassification.textContent = `当前归属：${majorText}｜${minorText}`;
     }
 
     function updateClassifyHint() {
@@ -1790,6 +1810,7 @@
       classifyButtons.forEach((button) => {
         button.classList.toggle("active", button.dataset.classifyMajor === pendingMajor);
       });
+      updateCurrentClassification();
       updateClassifyHint();
       maybeClassifyCurrentReview();
     }
@@ -1799,6 +1820,7 @@
       minorClassifyButtons.forEach((button) => {
         button.classList.toggle("active", button.dataset.classifyMinor === pendingMinor);
       });
+      updateCurrentClassification();
       updateClassifyHint();
       maybeClassifyCurrentReview();
     }
@@ -1930,7 +1952,7 @@
     function openUploadModal(event) {
       if (event) event.preventDefault();
       if (!managementMode) {
-        alert("上传功能需要在本地管理模式使用。");
+        alert("线上页面只能展示图片，不能保存上传内容。请用本地管理模式 http://localhost:8090/ 上传和分类。");
         return;
       }
       uploadStatus.textContent = "";
