@@ -1104,14 +1104,6 @@
       line-height: 1.6;
     }
 
-    body.static-mode .manage-only {
-      display: none;
-    }
-
-    body.delete-enabled.static-mode .delete-action {
-      display: block !important;
-    }
-
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -1838,6 +1830,21 @@
       const beforeList = visibleReviews.slice();
       const beforeIndex = Math.max(0, beforeList.findIndex((review) => review.id === currentReview.id));
       const shouldAutoNext = currentReview.major === "inbox";
+
+      if (!managementMode) {
+        currentReview.major = targetMajor;
+        currentReview.majorName = categoryNames[targetMajor];
+        currentReview.minor = targetMinor;
+        modalDesc.textContent = `${categoryNames[currentReview.major] || "好评分类"}｜小分类：${minorNames[currentReview.minor] || "未设置"}`;
+        updateClassifyButtons(currentReview);
+        classifyHint.textContent = "线上页面已切换显示；要保存到文件夹，请回到本地管理页面操作。";
+        renderGallery();
+        renderFeaturedReviews();
+        classifyButtons.forEach((item) => {
+          item.textContent = categoryNames[item.dataset.classifyMajor];
+        });
+        return;
+      }
 
       try {
         const response = await fetch("/api/reviews/move", {
