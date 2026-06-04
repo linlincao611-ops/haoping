@@ -477,6 +477,13 @@
       margin-bottom: 22px;
     }
 
+    .gallery-title-line {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
     .gallery-head h2 {
       font-size: clamp(28px, 4vw, 40px);
     }
@@ -518,7 +525,7 @@
 
     .tag-filters {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       flex-wrap: wrap;
       gap: 8px;
       width: 100%;
@@ -530,6 +537,7 @@
       flex-wrap: wrap;
       gap: 8px;
       width: 100%;
+      justify-content: flex-start;
     }
 
     .gallery-grid {
@@ -732,6 +740,15 @@
       gap: 6px;
     }
 
+    .quick-filter {
+      color: #06111f;
+      background: var(--gold);
+      border-color: transparent;
+      box-shadow: 0 10px 28px rgba(255, 209, 102, 0.2);
+    }
+
+    .quick-filter:hover,
+    .quick-filter.active,
     .filter-button.star-filter.active {
       background: var(--gold);
       color: #06111f;
@@ -1289,7 +1306,13 @@
       <div class="shell">
         <div class="gallery-panel">
           <div class="gallery-head">
-            <h2 id="galleryTitle">AI成长圈 · 曹导</h2>
+            <div>
+              <div class="gallery-title-line">
+                <h2 id="galleryTitle">AI成长圈 · 曹导</h2>
+                <button class="filter-button star-filter quick-filter" data-filter-type="featured" data-filter-value="true"><span>★</span><span>精选好评</span></button>
+                <button class="filter-button danger-filter quick-filter" data-filter-type="unclassified" data-filter-value="true">未分类</button>
+              </div>
+            </div>
             <p>这里显示所有图片，可按大分类、小分类或未分类筛选；进入编辑后可勾选图片并批量下载。</p>
           </div>
           <div class="gallery-layout">
@@ -1297,18 +1320,16 @@
               <div class="gallery-toolbar">
                 <div class="tag-filters" aria-label="画廊筛选标签">
                   <div class="filter-row">
-                    <button class="filter-button active" data-filter-type="minor" data-filter-value="all">岗位分类</button>
-                    <button class="filter-button" data-filter-type="minor" data-filter-value="finance">财务</button>
-                    <button class="filter-button" data-filter-type="minor" data-filter-value="admin">行政</button>
-                    <button class="filter-button" data-filter-type="minor" data-filter-value="marketing">运营</button>
-                  </div>
-                  <div class="filter-row">
-                    <button class="filter-button star-filter" data-filter-type="featured" data-filter-value="true"><span>★</span><span>精选好评</span></button>
-                    <button class="filter-button danger-filter" data-filter-type="unclassified" data-filter-value="true">未分类</button>
                     <button class="filter-button" data-filter-type="major" data-filter-value="all">内容分类</button>
                     <button class="filter-button" data-filter-type="major" data-filter-value="lobster">行业案例</button>
                     <button class="filter-button" data-filter-type="major" data-filter-value="community">交流好评</button>
                     <button class="filter-button" data-filter-type="major" data-filter-value="student">学员成长</button>
+                  </div>
+                  <div class="filter-row">
+                    <button class="filter-button active" data-filter-type="minor" data-filter-value="all">岗位分类</button>
+                    <button class="filter-button" data-filter-type="minor" data-filter-value="finance">财务</button>
+                    <button class="filter-button" data-filter-type="minor" data-filter-value="admin">行政</button>
+                    <button class="filter-button" data-filter-type="minor" data-filter-value="marketing">运营</button>
                   </div>
                 </div>
                 <div class="management-actions">
