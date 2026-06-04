@@ -680,9 +680,25 @@
     }
 
     .upload-drop input {
-      max-width: 100%;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .upload-pick-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
       margin-top: 18px;
-      color: var(--text);
+      padding: 0 18px;
+      border-radius: 8px;
+      color: #03101f;
+      background: linear-gradient(90deg, var(--cyan), var(--green));
+      font-weight: 800;
+      cursor: pointer;
     }
 
     .upload-status {
@@ -754,14 +770,16 @@
       color: #06111f;
     }
 
-    .filter-button.danger-filter {
-      border-color: rgba(255, 94, 94, 0.52);
-      color: #ffd1d1;
+    .quick-filter.danger-filter {
+      color: #06111f;
+      border-color: transparent;
+      background: var(--gold);
     }
 
-    .filter-button.danger-filter.active {
-      color: #fff;
-      background: #ff4242;
+    .quick-filter.danger-filter:hover,
+    .quick-filter.danger-filter.active {
+      color: #06111f;
+      background: var(--gold);
     }
 
     .management-actions {
@@ -1012,7 +1030,7 @@
     }
 
     body.delete-enabled .delete-action {
-      display: block;
+      display: block !important;
     }
 
     .delete-action:hover {
@@ -1077,6 +1095,10 @@
 
     body.static-mode .manage-only {
       display: none;
+    }
+
+    body.delete-enabled.static-mode .delete-action {
+      display: block !important;
     }
 
     .back-link {
@@ -1413,6 +1435,7 @@
           <div>
             <h3 id="uploadTitle">上传好评图片</h3>
             <p>选择截图后会自动进入分类界面。</p>
+            <label class="upload-pick-button" for="uploadInput">选择照片</label>
             <input id="uploadInput" type="file" accept="image/*">
             <input id="batchUploadInput" type="file" accept="image/*" multiple hidden>
             <div class="upload-status" id="uploadStatus"></div>
@@ -1914,6 +1937,9 @@
       uploadInput.value = "";
       uploadModal.classList.add("is-open");
       uploadModal.setAttribute("aria-hidden", "false");
+      if (window.matchMedia("(max-width: 760px)").matches) {
+        setTimeout(() => uploadInput.click(), 120);
+      }
     }
 
     function closeUploadModal() {
