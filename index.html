@@ -549,6 +549,8 @@
     .gallery-item {
       position: relative;
       min-height: 260px;
+      content-visibility: auto;
+      contain-intrinsic-size: 320px 360px;
       border: 1px solid rgba(92, 190, 255, 0.2);
       border-radius: 8px;
       background: rgba(255, 255, 255, 0.055);
@@ -583,8 +585,8 @@
     }
 
     .gallery-thumb img {
-      max-width: 100%;
-      max-height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       display: block;
       background: rgba(2, 10, 20, 0.72);
@@ -1179,6 +1181,69 @@
     }
 
     @media (max-width: 640px) {
+      .modal {
+        align-items: stretch;
+        padding: 0;
+      }
+
+      .modal-card {
+        width: 100%;
+        height: 100dvh;
+        max-height: 100dvh;
+        border-radius: 0;
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(0, 1fr) auto;
+      }
+
+      .modal-image {
+        padding: 8px;
+      }
+
+      .modal-image img {
+        width: auto;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      .modal-meta {
+        max-height: 45dvh;
+        padding: 12px;
+        border-left: 0;
+        border-top: 1px solid rgba(92, 190, 255, 0.18);
+      }
+
+      .modal-meta h3 {
+        font-size: 18px;
+      }
+
+      .modal-actions {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .modal-action {
+        min-height: 42px;
+        padding: 0 8px;
+        font-size: 13px;
+      }
+
+      .current-classification,
+      .classify-hint,
+      .modal-category-title,
+      .delete-action,
+      .modal-close {
+        grid-column: 1 / -1;
+      }
+
+      .nav-arrow {
+        width: 24px;
+      }
+
+      .nav-arrow::before {
+        width: 22px;
+      }
+
       .nav {
         align-items: flex-start;
         flex-direction: column;
@@ -1642,7 +1707,7 @@
         <span class="select-badge">✓</span>
         <span class="star-badge ${getFeatured(review) ? "" : "is-off"}">★</span>
         <div class="gallery-thumb ${review.minor}">
-          <img src="${review.url}" alt="${review.title}">
+          <img src="${review.thumbUrl || review.url}" alt="${review.title}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${review.url}'">
         </div>
         <strong>${review.title}</strong>
         <span>大分类：${categoryNames[review.major] || "未分类"}｜小分类：${minorNames[review.minor] || "未设置"}</span>
@@ -1754,7 +1819,7 @@
     function openReview(review) {
       currentReview = review;
       modalImage.className = "modal-image";
-      modalImage.innerHTML = `<img src="${review.url}" alt="${review.title}">`;
+      modalImage.innerHTML = `<img src="${review.url}" alt="${review.title}" decoding="async" fetchpriority="high">`;
       modalTitle.textContent = review.title;
       modalDesc.textContent = `${categoryNames[review.major] || "好评分类"}｜小分类：${minorNames[review.minor] || "未设置"}`;
       modalStar.classList.toggle("active", getFeatured(review));
